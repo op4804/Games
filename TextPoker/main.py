@@ -87,18 +87,12 @@ for i in range(5):
     print(deck.pop(random.randrange(1,len(deck))),end=" ")
 #print(deck)
 
-
-
-
-
 '''
 
 
 
 '''
 두명 대결해서 확률 보여주는걸로 하자.
-
-
 
 '''
 
