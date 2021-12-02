@@ -6,15 +6,24 @@ def resetDeck(deck:list):
 "DA","D2","D3","D4","D5","D6","D7","D8","D9","D10","DJ","DQ","DK",
 "CA","C2","C3","C4","C5","C6","C7","C8","C9","C10","CJ","CQ","CK"
 ]
-
-
     return reseted
 
 def calcRanking(cards:list):
     objhands = makeHand(cards)
 
+def deleteSame(lst:list):
+    newlist = []
+    for i in range(len(lst)):
+        if lst[i] in newlist:
+            pass
+        else:
+            newlist.append(lst[i])
+    newlist.sort()
+    return newlist 
+
+
 def makeHand(cards:list):
-    clone = cards
+    clone = []
     hand_list = []
     for i in range(len(cards)):
         clone = cards.copy()
@@ -23,22 +32,13 @@ def makeHand(cards:list):
             cclone = clone.copy()
             cclone.pop(j)
             hand_list.append(cclone)
-
-    newlist = []
-    for i in range(len(hand_list)):
-        if hand_list[i] in newlist:
-            pass
-        else:
-            newlist.append(hand_list[i])
-    newlist.sort()
-    return newlist 
+    return deleteSame(hand_list)
 
 deck = ["HA","H2","H3","H4","H5","H6","H7","H8","H9","H10","HJ","HQ","HK",
 "SA","S2","S3","S4","S5","S6","S7","S8","S9","S10","SJ","SQ","SK",
 "DA","D2","D3","D4","D5","D6","D7","D8","D9","D10","DJ","DQ","DK",
 "CA","C2","C3","C4","C5","C6","C7","C8","C9","C10","CJ","CQ","CK"
 ]
-
 
 print("Welcome to Poker game")
 print("shuffling...")
@@ -75,9 +75,6 @@ print("field is")
 print(field)
 my_total_hand = field + player_hand
 print("your hand is")
-
-
-
 
 
 #print(deck)

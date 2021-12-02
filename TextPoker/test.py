@@ -13,6 +13,15 @@
 
 스트레이트 판정기
 '''
+def deleteSame(lst:list):
+    newlist = []
+    for i in range(len(lst)):
+        if lst[i] in newlist:
+            pass
+        else:
+            newlist.append(lst[i])
+    newlist.sort()
+    return newlist 
 
 def replaceHand(hands:list,replacy:str, replacer:str):
     temp = 0
@@ -63,8 +72,6 @@ def checkStraight(hands:list):
         if int(nums[0]) == 2 and int(nums[1]) == 3 and int(nums[2]) == 4 and int(nums[3]) == 5:
             isstraight = True
 
-    highest = nums[4]
-
     return isstraight 
 def checkFlush(hands:list):
     shapes = []
@@ -77,16 +84,41 @@ def checkFlush(hands:list):
     return isFlush
 
 def checkPair(hands:list):
+    nums = []
+    for i in range(len(hands)):
+        nums.append(int(hands[i][1:]))
+    nums.sort()
 
-    return 0
+    nums_set = deleteSame(nums)
+    
+    if len(nums_set) == 5:
+        return 0
+    elif len(nums_set) == 4:
+        return 1
+    elif len(nums_set) == 3:
+        twoortriple = nums.copy()
+        for i in range(len(nums_set)):
+            if nums_set[i] in twoortriple:
+                twoortriple.remove(nums_set[i])
+        if twoortriple[0] == twoortriple[1]:
+            return 3
+        else:
+            return 2
+    elif len(nums_set) == 2: # 풀하우스 일수도 있다 / 포카드랑 
+        fullhouseorfourcard = nums.copy()
+        for i in range(len(nums_set)):
+            if nums_set[i] in fullhouseorfourcard:
+                fullhouseorfourcard.remove(nums_set[i])
+        if fullhouseorfourcard[0] == fullhouseorfourcard[1] == fullhouseorfourcard[2]:
+            return 4
+        else:
+            return 6
+    else:
+        return -1
 
 
-testhand = ["SK","SJ","S4","SQ","S2"]
+
+testhand = ["H4","SJ","S4","C4","D4"]
 rank = [0,0]
-
-print(testhand)
 testhand = changeRoyal(testhand)
-print(testhand)
-
-print(checkFlush(testhand))
-
+print(checkPair(testhand))
