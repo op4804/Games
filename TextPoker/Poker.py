@@ -8,12 +8,80 @@
 투페어 2
 원페어 1
 탑 0
-
-연속되는 숫자. 2번째 소트해서 
-
-스트레이트 판정기
 '''
-def deleteSame(lst:list):
+
+'''
+[
+[[1,2,3,4,5],'1'],
+[[1,2,3,4,5],'1'],
+[[1,2,3,4,5],'1'],
+[[1,2,3,4,5],'1']
+]
+
+
+'''
+
+def MakeStrongestHand(handslist:list):
+    handsranking = [] #3차원 배열? 
+    for i in range(len(handslist)):
+        handsranking.append(handslist[i],calcRank(handslist[i]))
+    
+    print(handsranking)
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    return 0
+
+def calcRank(hands:list):
+    rankpoints = 0
+
+    return 0 
+
+def findTopCard(hands:list):
+    return 0
+
+#조합이다! 
+def makeHand(cards:list):
+    clone = []
+    hand_list = []
+    for i in range(len(cards)):
+        clone = cards.copy()
+        clone.pop(i)
+        for j in range(len(clone)):
+            cclone = clone.copy()
+            cclone.pop(j)
+            hand_list.append(cclone)
+    return deleteSame(hand_list)
+
+#리스트에서 중복을 제거해주는 함수
+def deleteSame(lst:list): 
     newlist = []
     for i in range(len(lst)):
         if lst[i] in newlist:
@@ -23,7 +91,8 @@ def deleteSame(lst:list):
     newlist.sort()
     return newlist 
 
-def replaceHand(hands:list,replacy:str, replacer:str):
+#리스트에서 replacy를 찾아 replacer로 바꿔주는 함수
+def replaceHand(hands:list, replacy:str, replacer:str):
     temp = 0
     for i in range(len(hands)):
         if hands[i] == replacy:
@@ -32,9 +101,9 @@ def replaceHand(hands:list,replacy:str, replacer:str):
     origin_shape = origin_card[0]
     addable_card = origin_shape + replacer
     hands.append(addable_card)
-
     return hands
 
+#hand 에서 A,J,Q,K를 숫자로 바꿔주는 함수
 def changeRoyal(hands:list):
     cards = hands.copy()
 
@@ -52,6 +121,7 @@ def changeRoyal(hands:list):
                 replaceHand(cards,hands[i][1:],hands[i][1:])
     return cards
 
+
 def checkStraight(hands:list):
     nums = []
     for i in range(len(hands)):
@@ -67,12 +137,11 @@ def checkStraight(hands:list):
         isstraight = False
     elif int(nums[3]) + 1 != int(nums[4]):
         isstraight = False
-    print(nums)
     if isstraight == False and int(nums[4]) == 14:
         if int(nums[0]) == 2 and int(nums[1]) == 3 and int(nums[2]) == 4 and int(nums[3]) == 5:
             isstraight = True
-
     return isstraight 
+
 def checkFlush(hands:list):
     shapes = []
     isFlush = False
@@ -114,11 +183,11 @@ def checkPair(hands:list):
         else:
             return 6
     else:
-        return -1
+        return -1 #오류
 
 
 
-testhand = ["H4","SJ","S4","C4","D4"]
+testhand = ["H4","SJ","S4","C4","D4","D7","S4"]
+
 rank = [0,0]
-testhand = changeRoyal(testhand)
-print(checkPair(testhand))
+print(makeHand(testhand))

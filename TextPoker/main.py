@@ -8,9 +8,6 @@ def resetDeck(deck:list):
 ]
     return reseted
 
-def calcRanking(cards:list):
-    objhands = makeHand(cards)
-
 def deleteSame(lst:list):
     newlist = []
     for i in range(len(lst)):
@@ -20,19 +17,6 @@ def deleteSame(lst:list):
             newlist.append(lst[i])
     newlist.sort()
     return newlist 
-
-
-def makeHand(cards:list):
-    clone = []
-    hand_list = []
-    for i in range(len(cards)):
-        clone = cards.copy()
-        clone.pop(i)
-        for j in range(len(clone)):
-            cclone = clone.copy()
-            cclone.pop(j)
-            hand_list.append(cclone)
-    return deleteSame(hand_list)
 
 deck = ["HA","H2","H3","H4","H5","H6","H7","H8","H9","H10","HJ","HQ","HK",
 "SA","S2","S3","S4","S5","S6","S7","S8","S9","S10","SJ","SQ","SK",
