@@ -18,55 +18,40 @@
 [[1,2,3,4,5],'1']
 ]
 
-
 '''
 
 def MakeStrongestHand(handslist:list):
-    handsranking = [] #3차원 배열? 
+    handsranking = [] 
     for i in range(len(handslist)):
-        handsranking.append(handslist[i],calcRank(handslist[i]))
+        handsranking.append([handslist[i],calcRank(handslist[i])])
     
     print(handsranking)
-       
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    return 0
+    return handsranking
 
 def calcRank(hands:list):
     rankpoints = 0
 
+
+
+
+
+
+    return rankpoints
+
     return 0 
 
 def findTopCard(hands:list):
-    return 0
-
+    topnumber = 0
+    cards = hands.copy()
+    cards = changeRoyal(cards) 
+    cards = eraseShape(cards)
+    cards.sort()
+    topnumber = int(cards[4])
+    if topnumber < 10:
+        topnumber = ('0'+str(topnumber))
+    return topnumber
+    
 #조합이다! 
 def makeHand(cards:list):
     clone = []
@@ -121,12 +106,15 @@ def changeRoyal(hands:list):
                 replaceHand(cards,hands[i][1:],hands[i][1:])
     return cards
 
-
-def checkStraight(hands:list):
+def eraseShape(hands:list):
     nums = []
     for i in range(len(hands)):
         nums.append(int(hands[i][1:]))
     nums.sort()
+    return nums
+
+def checkStraight(hands:list):
+    nums = eraseShape(hands)
     
     isstraight = True
     if int(nums[0]) + 1 != int(nums[1]):
@@ -153,10 +141,7 @@ def checkFlush(hands:list):
     return isFlush
 
 def checkPair(hands:list):
-    nums = []
-    for i in range(len(hands)):
-        nums.append(int(hands[i][1:]))
-    nums.sort()
+    nums = eraseShape(hands)
 
     nums_set = deleteSame(nums)
     
@@ -187,7 +172,7 @@ def checkPair(hands:list):
 
 
 
-testhand = ["H4","SJ","S4","C4","D4","D7","S4"]
+testhand = ["H4","S7","S4","C4","D6"]
 
 rank = [0,0]
-print(makeHand(testhand))
+print(findTopCard(testhand))
