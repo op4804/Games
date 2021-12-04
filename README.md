@@ -1,2 +1,2 @@
 # Games
-code for various game!
+code for various games!
