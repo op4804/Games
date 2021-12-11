@@ -55,28 +55,8 @@ TODOLIST 211210
 
 '''
 
-# 자신이 될 수 있는 모든 패중 가장 높은 핸드를 돌려주는 함수
-def MakeStrongestHand(handslist:list):
-    handsranking = [] 
-    for i in range(len(handslist)):
-        handsranking.append([handslist[i],calcRank(handslist[i])])
-    
-    print(handsranking)
-
-    return handsranking
-
-def findHigestHand(cards:list):
-
-    return 0
 
 
-# 핸드를 제공하면 카드 점수를 돌려주는 함수
-def calcRank(hands:list):
-    rankpoints = 0
-
-
-
-    return rankpoints
 
 # 가지고있는 핸드중 가장 높은 숫자의 카드를 돌려주는 함수
 def findTopCard(hands:list):
@@ -90,31 +70,27 @@ def findTopCard(hands:list):
         topnumber = ('0' + str(topnumber))
     return topnumber
 
-
-
-
 # 풀하우스, 포카드, 트리플, 투페어, 원페어일때 페어인 카드를 출력해주는 함수 
 def findMatchCard(hands:list):
     match_card = 0
     cards = hands.copy()
-    tier = checkPair(cards) 
+    tier = checkPair(cards)
     cards = changeRoyal(cards)
     cards = removeShape(cards)
     cards_set = deleteSame(cards)
     
-    if tier == 1 or 3 or 4:
+    if tier == 1 or tier == 3 or tier == 4:
         for i in range(len(cards_set)):
             if cards_set[i] in cards:
                 cards.remove(cards_set[i])
         match_card = cards[0]
-    
     elif tier == 2:
+        
         for i in range(len(cards_set)):
             if cards_set[i] in cards:
                 cards.remove(cards_set[i])
         cards.sort()
         match_card = cards[1]
-
     elif tier == 6:
         for i in range(len(cards_set)):
             if cards_set[i] in cards:
@@ -124,6 +100,8 @@ def findMatchCard(hands:list):
                 cards.remove(cards_set[i])
         match_card = cards[0]
 
+    if match_card < 10:
+        match_card = ('0' + str(match_card))
     return match_card
 
 # 제시한 7개의 카드로 가능한 모든 핸드의 리스트를 반환해주는 함수
@@ -190,7 +168,9 @@ def removeShape(hands:list):
 
 # Straight인지 판별해주는 함수 Retrun type : bool
 def checkStraight(hands:list):
-    nums = removeShape(hands)
+    cards = hands.copy()
+    cards = changeRoyal(cards)
+    nums = removeShape(cards)
     
     isstraight = True
     if int(nums[0]) + 1 != int(nums[1]):
@@ -249,10 +229,121 @@ def checkPair(hands:list):
     else:
         return -1 #오류
 
+# 자신이 될 수 있는 모든 패중 가장 높은 핸드를 돌려주는 함수 (제작중)
+def MakeStrongestHand(handslist:list):
+    allhands = makeHand(handslist)
+    handsranking = []
+    toprank = 0
+    alltophands = []
+    tophands = []
+    for i in range(len(allhands)):
+        handsranking.append([calcRank(allhands[i]),allhands[i]])
+
+    toprank = handsranking[0][0]
+    for i in range(len(handsranking)):
+        if toprank < handsranking[i][0]:
+            toprank = handsranking[i][0]
+    
+
+    for i in range(len(handsranking)):
+        if toprank == handsranking[i][0]:
+            alltophands.append(handsranking[i][1])
+    if len(alltophands) == 1:
+        tophands = alltophands[0]
+    else:
+        tophands = findHigestHand(alltophands)
+
+    return tophands
+
+# 같은 랭킹 포인트를 가지고 있을경우 높은 핸드를 찾아주는 함수 ( 이거 존나 어렵네 ㅅㅂ:;;;
+# 더 생각해 봐야 할 것 같다. 
+# 과연 가장 높은 숫자를 가지고있는게 모든 경우에서 더 쎈가?)
+def findHigestHand(cards:list):
+    tophands = []
+    allcards = []
+    allcards_set = []
+    sharedcards = []
+    distinguish_cards = cards.copy()
+    distinguish_nums = []
+    for i in range(len(cards)):
+        for j in range(len(cards[0])):
+            allcards.append(cards[i][j])
+
+    allcards.sort()
+    allcards_set = deleteSame(allcards)
+
+    for i in range(len(allcards_set)):
+        if allcards.count(allcards_set[i]) == len(cards):
+            sharedcards.append(allcards_set[i])
+    for i in range (len(cards)):
+        for j in range(len(sharedcards)):
+            distinguish_cards[i].remove(sharedcards[j])
+        
+    print(distinguish_cards)
+    findHigestHand(distinguish_cards)
+    '''
+    for i in range(len(distinguish_cards)):
+        distinguish_nums.append(removeShape(changeRoyal(distinguish_cards[i])))
+    
+    print(distinguish_nums)
+    print(max(distinguish_nums))
+    '''
+    
 
 
-testhand = ["H4","S7","S4","C4","DA"]
+
+    return tophands
+
+
+# 핸드를 제공하면 카드 점수를 돌려주는 함수
+def calcRank(hands:list):
+    rankpoints = 0
+    if bool(checkFlush(hands)) == True:
+        if bool(checkStraight(hands)) == True:
+            rankpoints = 8
+            rankpoints = str(rankpoints) + str(findTopCard(hands))
+        else:
+            rankpoints = 5
+            rankpoints = str(rankpoints) + str(findTopCard(hands))
+    elif bool(checkStraight) == True and bool(checkFlush) == False:
+        cards = changeRoyal(hands)
+        nums = removeShape(cards)
+        nums.sort()
+        if int(nums[0]) == 2 and int(nums[1]) == 3 and int(nums[2]) == 4 and int(nums[3]) == 5:
+            rankpoints = 4
+            rankpoints = str(rankpoints) + "05"
+        else:
+            rankpoints = 4
+            rankpoints = str(rankpoints) + str(findTopCard(hands))
+    else:        
+        checkpair = checkPair(hands)
+
+        if checkpair == 6:
+            rankpoints = 6
+            rankpoints = str(rankpoints) + str(findMatchCard(hands))
+        elif checkpair == 4:
+            rankpoints = 7
+            rankpoints = str(rankpoints) + str(findMatchCard(hands))
+        elif checkpair == 3:
+            rankpoints = 3
+            rankpoints = str(rankpoints) + str(findMatchCard(hands))
+        elif checkpair == 2:
+            rankpoints = 2
+            rankpoints = str(rankpoints) + str(findMatchCard(hands))        
+        elif checkpair == 1:
+            rankpoints = 1
+            rankpoints = str(rankpoints) + str(findMatchCard(hands))
+        elif checkpair == 0:
+            rankpoints = 0
+            rankpoints = str(rankpoints) + str(findTopCard(hands))   
+    return rankpoints
+
+
+testallcards = ["DA","D4","D2","D5","DJ","S2","D6"]
+testhand = ["DQ","S3","SA","H2","DJ"]
 
 rank = [0,0]
-print(checkPair(testhand))
-print(findMatchCard(testhand))
+
+MakeStrongestHand(testallcards)
+
+
