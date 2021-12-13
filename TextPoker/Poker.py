@@ -29,15 +29,13 @@
 ]
 '''
 
-
-
-
 '''
-TODOLIST 211210
-패를 보고 랭킹을 부여하는 함수 구현
-1. 
+TODOLIST 211214
 
-같은 랭킹일때 최고를 뽑는 함수 구현
+같은 랭킹일때 최고를 뽑는 함수 구현@@@
+
+
+
 '''
 
 '''
@@ -255,9 +253,7 @@ def MakeStrongestHand(handslist:list):
 
     return tophands
 
-# 같은 랭킹 포인트를 가지고 있을경우 높은 핸드를 찾아주는 함수 ( 이거 존나 어렵네 ㅅㅂ:;;;
-# 더 생각해 봐야 할 것 같다. 
-# 과연 가장 높은 숫자를 가지고있는게 모든 경우에서 더 쎈가?)
+# 가장 높은 함수 
 def findHigestHand(cards:list):
     tophands = []
     allcards = []
@@ -265,6 +261,8 @@ def findHigestHand(cards:list):
     sharedcards = []
     distinguish_cards = cards.copy()
     distinguish_nums = []
+    
+
     for i in range(len(cards)):
         for j in range(len(cards[0])):
             allcards.append(cards[i][j])
@@ -275,12 +273,16 @@ def findHigestHand(cards:list):
     for i in range(len(allcards_set)):
         if allcards.count(allcards_set[i]) == len(cards):
             sharedcards.append(allcards_set[i])
+    tophands.append(sharedcards)
     for i in range (len(cards)):
         for j in range(len(sharedcards)):
             distinguish_cards[i].remove(sharedcards[j])
         
     print(distinguish_cards)
-    findHigestHand(distinguish_cards)
+    while(len(tophands) != 5):
+        findHighestElement(distinguish_cards)
+        findHigestHand
+    
     '''
     for i in range(len(distinguish_cards)):
         distinguish_nums.append(removeShape(changeRoyal(distinguish_cards[i])))
@@ -294,6 +296,61 @@ def findHigestHand(cards:list):
 
     return tophands
 
+
+def findHighestElement(cards:list):
+    have_highest_el = []
+    hands = []
+    for i in range(len(cards)):
+        for j in range(len(cards[0])):
+            hands.append(cards[i][j])
+    
+    hands = changeRoyal(hands)
+    nums = removeShape(hands)
+    nums_set = deleteSame(nums)
+    print(nums_set)
+    highest = max(nums_set)
+    if highest > 10 :
+        if highest == 11:
+            highest = 'J'
+        elif highest == 12:
+            highest = 'Q'
+        elif highest == 13:
+            highest = 'K'
+        elif highest == 14:
+            highest = 'A'
+
+    print(highest)
+    for i in range(len(cards)):
+        for j in range(len(cards[0])):
+            if cards[i][j][1] == str(highest):
+                have_highest_el.append(cards[i])
+
+    have_highest_el.sort()
+    return have_highest_el 
+'''
+구조를 짜보자.  
+
+함수 1  
+2와 3을 호출
+
+
+
+함수 2
+
+리스트중 중복되는거 빼고
+중복되는거 반환
+남는 리스트 반환
+
+
+
+함수 3
+리스트중 가장 높은 원소를 가지고 있는 리스트들을 반환
+
+
+
+
+
+'''
 
 # 핸드를 제공하면 카드 점수를 돌려주는 함수
 def calcRank(hands:list):
