@@ -1,60 +1,3 @@
-'''
-랭킹 점수를 줄때 족보
-스트레이트 플러쉬 8 , 
-
-포카드 7 
-
-풀하우스6 
-
-플러쉬5 
-
-스트레이트 4 
-
-트리플 3 
-
-투페어 2
-
-원페어 1
-
-탑 0
-'''
-
-'''
-내가 가지고있는 모든 핸드에 대한 정보
-[
-[[1,2,3,4,5],'1'],
-[[1,2,3,4,5],'1'],
-[[1,2,3,4,5],'1'],
-[[1,2,3,4,5],'1']
-]
-'''
-
-'''
-TODOLIST 211214
-
-같은 랭킹일때 최고를 뽑는 함수 구현@@@
-
-
-
-'''
-
-'''
-
-메모
-
-핸드 / 카드 
-핸즈 / 카즈
-구별할것 
-
-플레이어들 끼리 비교할때는 
-핸드 / 랭킹
-이겼다 졌다만 출력하면 그만 
-
-
-'''
-
-
-
 
 # 가지고있는 핸드중 가장 높은 숫자의 카드를 돌려주는 함수
 def findTopCard(hands:list):
@@ -227,16 +170,17 @@ def checkPair(hands:list):
     else:
         return -1 #오류
 
-# 자신이 될 수 있는 모든 패중 가장 높은 핸드를 돌려주는 함수 (제작중)
+# 자신이 될 수 있는 모든 패중 가장 높은 핸드를 돌려주는 함수
 def MakeStrongestHand(handslist:list):
     allhands = makeHand(handslist)
     handsranking = []
     toprank = 0
     alltophands = []
     tophands = []
+    distinguish_cards = []
+    sharedcards = []
     for i in range(len(allhands)):
         handsranking.append([calcRank(allhands[i]),allhands[i]])
-
     toprank = handsranking[0][0]
     for i in range(len(handsranking)):
         if toprank < handsranking[i][0]:
@@ -246,10 +190,19 @@ def MakeStrongestHand(handslist:list):
     for i in range(len(handsranking)):
         if toprank == handsranking[i][0]:
             alltophands.append(handsranking[i][1])
+
     if len(alltophands) == 1:
         tophands = alltophands[0]
-    else:
-        tophands = findHigestHand(alltophands)
+    else:     
+        sharedcards,distinguish_cards = findHigestHand(alltophands)
+        for i in range(len(sharedcards[0])):
+            tophands.append(sharedcards[0][i])
+        while(len(tophands) != 5):
+            distinguish_cards = findHighestElement(distinguish_cards)
+
+            sharedcards,distinguish_cards = findHigestHand(distinguish_cards)
+            for i in range(len(sharedcards[0])):
+                tophands.append(sharedcards[0][i])
 
     return tophands
 
@@ -277,24 +230,8 @@ def findHigestHand(cards:list):
     for i in range (len(cards)):
         for j in range(len(sharedcards)):
             distinguish_cards[i].remove(sharedcards[j])
-        
-    print(distinguish_cards)
-    while(len(tophands) != 5):
-        findHighestElement(distinguish_cards)
-        findHigestHand
-    
-    '''
-    for i in range(len(distinguish_cards)):
-        distinguish_nums.append(removeShape(changeRoyal(distinguish_cards[i])))
-    
-    print(distinguish_nums)
-    print(max(distinguish_nums))
-    '''
-    
 
-
-
-    return tophands
+    return tophands, distinguish_cards
 
 
 def findHighestElement(cards:list):
@@ -307,8 +244,9 @@ def findHighestElement(cards:list):
     hands = changeRoyal(hands)
     nums = removeShape(hands)
     nums_set = deleteSame(nums)
-    print(nums_set)
+    
     highest = max(nums_set)
+
     if highest > 10 :
         if highest == 11:
             highest = 'J'
@@ -319,7 +257,6 @@ def findHighestElement(cards:list):
         elif highest == 14:
             highest = 'A'
 
-    print(highest)
     for i in range(len(cards)):
         for j in range(len(cards[0])):
             if cards[i][j][1] == str(highest):
@@ -327,42 +264,22 @@ def findHighestElement(cards:list):
 
     have_highest_el.sort()
     return have_highest_el 
-'''
-구조를 짜보자.  
-
-함수 1  
-2와 3을 호출
-
-
-
-함수 2
-
-리스트중 중복되는거 빼고
-중복되는거 반환
-남는 리스트 반환
-
-
-
-함수 3
-리스트중 가장 높은 원소를 가지고 있는 리스트들을 반환
-
-
-
-
-
-'''
 
 # 핸드를 제공하면 카드 점수를 돌려주는 함수
 def calcRank(hands:list):
     rankpoints = 0
+    
     if bool(checkFlush(hands)) == True:
+        
         if bool(checkStraight(hands)) == True:
             rankpoints = 8
             rankpoints = str(rankpoints) + str(findTopCard(hands))
         else:
             rankpoints = 5
             rankpoints = str(rankpoints) + str(findTopCard(hands))
-    elif bool(checkStraight) == True and bool(checkFlush) == False:
+    
+    elif bool(checkStraight(hands)) == True and bool(checkFlush(hands)) == False:
+        
         cards = changeRoyal(hands)
         nums = removeShape(cards)
         nums.sort()
@@ -372,7 +289,9 @@ def calcRank(hands:list):
         else:
             rankpoints = 4
             rankpoints = str(rankpoints) + str(findTopCard(hands))
+
     else:        
+        
         checkpair = checkPair(hands)
 
         if checkpair == 6:
@@ -394,13 +313,4 @@ def calcRank(hands:list):
             rankpoints = 0
             rankpoints = str(rankpoints) + str(findTopCard(hands))   
     return rankpoints
-
-
-testallcards = ["DA","D4","D2","D5","DJ","S2","D6"]
-testhand = ["DQ","S3","SA","H2","DJ"]
-
-rank = [0,0]
-
-MakeStrongestHand(testallcards)
-
 
