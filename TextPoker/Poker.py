@@ -314,3 +314,25 @@ def calcRank(hands:list):
             rankpoints = str(rankpoints) + str(findTopCard(hands))   
     return rankpoints
 
+def checkWhoWin(hands:list):
+    playernum = len(hands)
+    
+    return
+
+
+
+mehand = ['SK','CK']
+enemyhand = ['SA','S2']
+testfield = ['S5','H5','H6','CQ','S4']
+
+me = MakeStrongestHand(mehand + testfield)
+em = MakeStrongestHand(enemyhand + testfield)
+
+print(me,em)
+print(calcRank(me))
+print(calcRank(em))
+
+if calcRank(me) > calcRank(em):
+    print("me win")
+else :
+    print('enemywin')
