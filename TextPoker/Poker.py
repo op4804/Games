@@ -1,3 +1,5 @@
+import Tools
+
 
 # 가지고있는 핸드중 가장 높은 숫자의 카드를 돌려주는 함수
 def findTopCard(hands:list):
@@ -18,7 +20,7 @@ def findMatchCard(hands:list):
     tier = checkPair(cards)
     cards = changeRoyal(cards)
     cards = removeShape(cards)
-    cards_set = deleteSame(cards)
+    cards_set = Tools.deleteSame(cards)
     
     if tier == 1 or tier == 3 or tier == 4:
         for i in range(len(cards_set)):
@@ -56,18 +58,7 @@ def makeHand(cards:list):
             cclone = clone.copy()
             cclone.pop(j)
             hand_list.append(cclone)
-    return deleteSame(hand_list)
-
-# 리스트에서 중복을 제거해주는 함수
-def deleteSame(lst:list): 
-    newlist = []
-    for i in range(len(lst)):
-        if lst[i] in newlist:
-            pass
-        else:
-            newlist.append(lst[i])
-    newlist.sort()
-    return newlist 
+    return Tools.deleteSame(hand_list)
 
 # 리스트에서 replacy를 찾아 replacer로 바꿔주는 함수
 def replaceHand(hands:list, replacy:str, replacer:str):
@@ -143,7 +134,7 @@ def checkFlush(hands:list):
 def checkPair(hands:list):
     hands = changeRoyal(hands)
     nums = removeShape(hands)
-    nums_set = deleteSame(nums)
+    nums_set = Tools.deleteSame(nums)
     
     if len(nums_set) == 5:
         return 0
@@ -221,7 +212,7 @@ def findHigestHand(cards:list):
             allcards.append(cards[i][j])
 
     allcards.sort()
-    allcards_set = deleteSame(allcards)
+    allcards_set = Tools.deleteSame(allcards)
 
     for i in range(len(allcards_set)):
         if allcards.count(allcards_set[i]) == len(cards):
@@ -243,7 +234,7 @@ def findHighestElement(cards:list):
     
     hands = changeRoyal(hands)
     nums = removeShape(hands)
-    nums_set = deleteSame(nums)
+    nums_set = Tools.deleteSame(nums)
     
     highest = max(nums_set)
 
@@ -316,9 +307,19 @@ def calcRank(hands:list):
 
 def checkWhoWin(hands:list):
     playernum = len(hands)
-    
-    return
+    winner = 0
+    playerranks = []
+    for i in range(playernum):
+        playerranks.append(calcRank(hands[i]))
+    winrank = max(playerranks)
+    if playerranks.count(winrank) != 1:
+        for i in range(playernum):
+            if playerranks[i] == winrank:
+                str(winner) + str(i+1)         
+    else:
+        winner = playerranks.index(winrank) + 1        
 
+    return winner
 
 
 mehand = ['SK','CK']
@@ -328,11 +329,11 @@ testfield = ['S5','H5','H6','CQ','S4']
 me = MakeStrongestHand(mehand + testfield)
 em = MakeStrongestHand(enemyhand + testfield)
 
-print(me,em)
-print(calcRank(me))
-print(calcRank(em))
+allplayerhands = []
+allplayerhands.append(me)
+allplayerhands.append(em)
 
-if calcRank(me) > calcRank(em):
-    print("me win")
-else :
-    print('enemywin')
+print(checkWhoWin(allplayerhands))
+
+def showrank(rank:int):
+    return 0
