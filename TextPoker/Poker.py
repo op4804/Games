@@ -322,6 +322,69 @@ def checkWhoWin(hands:list):
     return winner
 
 
+def showrank(rank:int):
+    rankstr = str(rank)
+    rankmatch = rankstr[1] + rankstr[2]
+    rankhead = ''
+    ranktail = ''
+
+    if rankstr[0] == '8':
+        rankhead = 'straight flush'
+    elif rankstr[0] == '7':
+        rankhead = 'four card'
+    elif rankstr[0] == '6':
+        rankhead = 'fullhouse'
+    elif rankstr[0] == '5':
+        rankhead = 'flush'
+    elif rankstr[0] == '4':
+        rankhead = 'straight'
+    elif rankstr[0] == '3':
+        rankhead = 'triple'
+    elif rankstr[0] == '2':
+        rankhead = 'two pair'
+    elif rankstr[0] == '1':
+        rankhead = 'one pair'
+    elif rankstr[0] == '0':
+        rankhead = 'top'
+    else:
+        return -1
+    
+    if rankmatch == '14':
+        ranktail = 'ace'
+    elif rankmatch == '13':
+        ranktail = 'king' 
+    elif rankmatch == '12':
+        ranktail = 'queen'
+    elif rankmatch == '11':
+        ranktail = 'jack'
+    elif rankmatch == '10':
+        ranktail = 'ten'
+    elif rankmatch == '9':
+        ranktail = 'nine'
+    elif rankmatch == '8':
+        ranktail = 'eight'
+    elif rankmatch == '7':
+        ranktail = 'seven' 
+    elif rankmatch == '6':
+        ranktail = 'six'
+    elif rankmatch == '5':
+        ranktail = 'five'
+    elif rankmatch == '4':
+        ranktail = 'four'
+    elif rankmatch == '3':
+        ranktail = 'three'
+    elif rankmatch == '2':
+        ranktail = 'two'
+    else:
+        return -1
+
+    if int(rankstr[0]) > 1:
+        return rankhead
+    else:
+        return ranktail + " " + rankhead 
+
+
+
 mehand = ['SK','CK']
 enemyhand = ['SA','S2']
 testfield = ['S5','H5','H6','CQ','S4']
@@ -333,7 +396,9 @@ allplayerhands = []
 allplayerhands.append(me)
 allplayerhands.append(em)
 
+
+print(showrank(calcRank(me)))
 print(checkWhoWin(allplayerhands))
 
-def showrank(rank:int):
-    return 0
+
+     
