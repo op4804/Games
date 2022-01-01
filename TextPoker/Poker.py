@@ -382,23 +382,3 @@ def showrank(rank:int):
         return rankhead
     else:
         return ranktail + " " + rankhead 
-
-
-
-mehand = ['SK','CK']
-enemyhand = ['SA','S2']
-testfield = ['S5','H5','H6','CQ','S4']
-
-me = MakeStrongestHand(mehand + testfield)
-em = MakeStrongestHand(enemyhand + testfield)
-
-allplayerhands = []
-allplayerhands.append(me)
-allplayerhands.append(em)
-
-
-print(showrank(calcRank(me)))
-print(checkWhoWin(allplayerhands))
-
-
-     

@@ -1,6 +1,11 @@
-def initPoker():
-
-    
+def initPoker():    
+    #머니 
+    #내덱
+    #상대덱
+    #전체댁
+    #
+    return 0
+def initGame():
     return 0
 
 def resetDeck(deck:list):
@@ -11,8 +16,6 @@ def resetDeck(deck:list):
 ]
     return reseted
 
-
-
 def resetPocker():
     return 0
 
@@ -20,4 +23,10 @@ def initMoneySystem():
     return 0
 
 def printCurrentStatus():
+    return 0
+
+def checkWinner():
+    return 0
+
+def calcMoney():
     return 0
