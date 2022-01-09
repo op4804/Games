@@ -37,6 +37,6 @@ def checkWinner():
 def calcMoney():
     return 0
 
-def waitInput():
-    input()
+def waitInput(word:str):
+    input(word)
     return 0
