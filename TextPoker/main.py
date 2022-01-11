@@ -41,3 +41,33 @@ field.append(deck.pop(random.randrange(1,len(deck))))
 System.showCurrenthands(players_hands,field)
 System.waitInput('next?')
 
+money_set = []
+# 0 -> 팟
+# 1~ 플레이어의 돈
+
+
+'''
+<돈의 흐름>
+각자 플레이어는 일정의 돈을 가지고있음
+나 / 너 플레이어가 더 많다면 음
+
+선 
+
+후
+내야 하는 금액
+
+
+콜 / 다이 / 레이즈
+팟(모인 돈)
+
+
+게임 끝 / 오픈
+남은사람이먹고
+오픈 - > 승부 
+이긴사람이 먹는다
+무승부 시 
+반반 나눠먹기
+
+
+
+'''

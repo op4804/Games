@@ -1,6 +1,5 @@
 import Tools
 
-
 # 가지고있는 핸드중 가장 높은 숫자의 카드를 돌려주는 함수
 def findTopCard(hands:list):
     topnumber = 0
@@ -170,6 +169,7 @@ def MakeStrongestHand(handslist:list):
     tophands = []
     distinguish_cards = []
     sharedcards = []
+
     for i in range(len(allhands)):
         handsranking.append([calcRank(allhands[i]),allhands[i]])
     toprank = handsranking[0][0]
@@ -256,19 +256,20 @@ def findHighestElement(cards:list):
     have_highest_el.sort()
     return have_highest_el 
 
-# 핸드를 제공하면 카드 점수를 돌려주는 함수
+# 핸드를 제공하면 카드 점수를 돌려주는 함수 (점수는 세자리 숫자의 문자열로 반환한다.) 
+# 첫번째 숫자는 족보를 의미하며 나머지 두자리숫자는 그에 맞는 카드의 숫자이다. 
 def calcRank(hands:list):
     rankpoints = 0
-    
+    #플러시일 경우
     if bool(checkFlush(hands)) == True:
-        
+        #스트레이트 플러시일 경우
         if bool(checkStraight(hands)) == True:
             rankpoints = 8
             rankpoints = str(rankpoints) + str(findTopCard(hands))
         else:
             rankpoints = 5
             rankpoints = str(rankpoints) + str(findTopCard(hands))
-    
+    #스트레이트일 경우 
     elif bool(checkStraight(hands)) == True and bool(checkFlush(hands)) == False:
         
         cards = changeRoyal(hands)
@@ -284,7 +285,6 @@ def calcRank(hands:list):
     else:        
         
         checkpair = checkPair(hands)
-
         if checkpair == 6:
             rankpoints = 6
             rankpoints = str(rankpoints) + str(findMatchCard(hands))
