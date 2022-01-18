@@ -6,10 +6,11 @@ import System
 
 '''
 player_num = int(input("How many players do you want to play?: \n(please input only numbers)\n"))
+# 향후 다인의 플레이가 가능하게 끔 하는 부분. 
 
 '''
 players_hands = []
-player_num = 2
+player_num = 2 #현재는 2인을 기본 플레이로 한다. 
 for i in range(player_num):
     players_hands.append([])
 
@@ -18,6 +19,10 @@ here is the init points
 '''
 System.initPoker(players_hands)
 deck = System.resetDeck()
+
+money_set = []
+money_set = System.initMoneySystem(money_set,player_num)
+
 field = []
 
 players_hands[0].append(deck.pop(random.randrange(1,len(deck))))
@@ -41,7 +46,8 @@ field.append(deck.pop(random.randrange(1,len(deck))))
 System.showCurrenthands(players_hands,field)
 System.waitInput('next?')
 
-money_set = []
+
+print(money_set)
 # 0 -> 팟
 # 1~ 플레이어의 돈
 

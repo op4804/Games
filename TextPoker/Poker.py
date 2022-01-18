@@ -321,7 +321,7 @@ def checkWhoWin(hands:list):
 
     return winner
 
-
+# calcrank 된 세자리 숫자를 주면 족보를 글로 반환해주는 함수.
 def showrank(rank:int):
     rankstr = str(rank)
     rankmatch = rankstr[1] + rankstr[2]

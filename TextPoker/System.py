@@ -25,8 +25,14 @@ def showCurrenthands(playerhands:list,field:list):
 def resetPocker():
     return 0
 
-def initMoneySystem():
-    return 0
+def initMoneySystem(money_set:list, playernum:int):
+
+    money_set.append(0)
+
+    for i in range(playernum):
+        money_set.append(0)
+
+    return money_set
 
 def printCurrentStatus():
     return 0
