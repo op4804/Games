@@ -20,7 +20,8 @@ here is the init points
 System.initPoker(players_hands)
 deck = System.resetDeck()
 
-money_set = []
+money_set = [] # [0] : 팟 / 나머지 각 플레이어들의 돈
+
 money_set = System.initMoneySystem(money_set,player_num)
 
 field = []
@@ -48,6 +49,7 @@ System.waitInput('next?')
 
 
 print(money_set)
+
 # 0 -> 팟
 # 1~ 플레이어의 돈
 
