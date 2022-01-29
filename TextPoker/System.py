@@ -1,3 +1,6 @@
+
+
+
 def initPoker(playerhands:list):
     for i in range(len(playerhands)):
         playerhands[i] = []    
@@ -45,4 +48,7 @@ def calcMoney():
 
 def waitInput(word:str):
     input(word)
+    return 0
+
+def initWinRate():
     return 0

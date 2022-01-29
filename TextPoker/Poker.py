@@ -1,4 +1,19 @@
+'''
+Poker.py 는 
+포커 작동관련 모든 함수를 정의 해 놓은 곳이다. 
+
+
+
+
+'''
+
+
+
+
 import Tools
+
+
+
 
 # 가지고있는 핸드중 가장 높은 숫자의 카드를 돌려주는 함수
 def findTopCard(hands:list):
@@ -161,6 +176,8 @@ def checkPair(hands:list):
         return -1 #오류
 
 # 자신이 될 수 있는 모든 패중 가장 높은 핸드를 돌려주는 함수
+# 7개의 핸드로 될수 있는 모든 핸드를 만든 후, calcrank해서 가장 높은 점수를 가진 핸드를 반환한다. 
+# 만약 같은 족보로 점수가 겹칠경우 
 def MakeStrongestHand(handslist:list):
     allhands = makeHand(handslist)
     handsranking = []
@@ -175,8 +192,7 @@ def MakeStrongestHand(handslist:list):
     toprank = handsranking[0][0]
     for i in range(len(handsranking)):
         if toprank < handsranking[i][0]:
-            toprank = handsranking[i][0]
-    
+            toprank = handsranking[i][0]    
 
     for i in range(len(handsranking)):
         if toprank == handsranking[i][0]:
@@ -184,7 +200,7 @@ def MakeStrongestHand(handslist:list):
 
     if len(alltophands) == 1:
         tophands = alltophands[0]
-    else:     
+    else:# 가장높은 핸드가 여러개라면? 
         sharedcards,distinguish_cards = findHigestHand(alltophands)
         for i in range(len(sharedcards[0])):
             tophands.append(sharedcards[0][i])
@@ -197,15 +213,14 @@ def MakeStrongestHand(handslist:list):
 
     return tophands
 
-# 가장 높은 함수 
+# 가장 높은족보를 찾는 함수 
 def findHigestHand(cards:list):
     tophands = []
     allcards = []
     allcards_set = []
     sharedcards = []
     distinguish_cards = cards.copy()
-    distinguish_nums = []
-    
+    distinguish_nums = []    
 
     for i in range(len(cards)):
         for j in range(len(cards[0])):
@@ -217,14 +232,16 @@ def findHigestHand(cards:list):
     for i in range(len(allcards_set)):
         if allcards.count(allcards_set[i]) == len(cards):
             sharedcards.append(allcards_set[i])
+
     tophands.append(sharedcards)
+
     for i in range (len(cards)):
         for j in range(len(sharedcards)):
             distinguish_cards[i].remove(sharedcards[j])
 
     return tophands, distinguish_cards
 
-
+# 가장 높은 탑카드를 찾는 함수 
 def findHighestElement(cards:list):
     have_highest_el = []
     hands = []
@@ -305,21 +322,6 @@ def calcRank(hands:list):
             rankpoints = str(rankpoints) + str(findTopCard(hands))   
     return rankpoints
 
-def checkWhoWin(hands:list):
-    playernum = len(hands)
-    winner = 0
-    playerranks = []
-    for i in range(playernum):
-        playerranks.append(calcRank(hands[i]))
-    winrank = max(playerranks)
-    if playerranks.count(winrank) != 1:
-        for i in range(playernum):
-            if playerranks[i] == winrank:
-                str(winner) + str(i+1)         
-    else:
-        winner = playerranks.index(winrank) + 1        
-
-    return winner
 
 # calcrank 된 세자리 숫자를 주면 족보를 글로 반환해주는 함수.
 def showrank(rank:int):
@@ -382,3 +384,25 @@ def showrank(rank:int):
         return rankhead
     else:
         return ranktail + " " + rankhead 
+
+#여러개의 핸드를 주면 가장 높은 패를 가지고 있는 핸드의 index + 1를 돌려준다. 
+#만약 승자가 여려명이라면 무승부인 모든 플레이어를 리턴한다. 
+
+def checkWhoWin(hands:list):
+    playernum = len(hands)
+    winner = 0
+    playerranks = []
+
+    for i in range(playernum):
+        playerranks.append(calcRank(hands[i]))
+    winrank = max(playerranks)
+
+    if playerranks.count(winrank) != 1:
+        for i in range(playernum):
+            if playerranks[i] == winrank:
+                str(winner) + str(i+1)         
+    else:
+        winner = playerranks.index(winrank) + 1        
+
+    return winner
+

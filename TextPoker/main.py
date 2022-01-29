@@ -1,14 +1,19 @@
+'''
+Main 은 게임이 돌아가는 부분이다. 
+
+
+
+'''
+
+
+
 import random
 import Poker
 import System 
 
+#player_num = int(input("How many players do you want to play?: \n(please input only numbers)\n"))
+# 향후 다수의 플레이어가 플레이 할 수있게 하는 부분. 
 
-
-'''
-player_num = int(input("How many players do you want to play?: \n(please input only numbers)\n"))
-# 향후 다인의 플레이가 가능하게 끔 하는 부분. 
-
-'''
 players_hands = []
 player_num = 2 #현재는 2인을 기본 플레이로 한다. 
 for i in range(player_num):
@@ -24,15 +29,15 @@ money_set = [] # [0] : 팟 / 나머지 각 플레이어들의 돈
 
 money_set = System.initMoneySystem(money_set,player_num)
 
-field = []
+field = [] # 바닥에 깔리는 패
 
-players_hands[0].append(deck.pop(random.randrange(1,len(deck))))
+players_hands[0].append(deck.pop(random.randrange(1,len(deck)))) #내게 오는 패
 
-players_hands[1].append(deck.pop(random.randrange(1,len(deck))))
+players_hands[1].append(deck.pop(random.randrange(1,len(deck)))) #상대방에게 오는 패
 
-players_hands[0].append(deck.pop(random.randrange(1,len(deck))))
+players_hands[0].append(deck.pop(random.randrange(1,len(deck)))) #내게 오는 패
 
-players_hands[1].append(deck.pop(random.randrange(1,len(deck))))
+players_hands[1].append(deck.pop(random.randrange(1,len(deck)))) #상대방에게 오는 패
 
 field.append(deck.pop(random.randrange(1,len(deck))))
 field.append(deck.pop(random.randrange(1,len(deck))))
