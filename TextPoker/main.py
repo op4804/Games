@@ -5,8 +5,6 @@ Main 은 게임이 돌아가는 부분이다.
 
 '''
 
-
-
 import random
 import Poker
 import System 
@@ -31,24 +29,20 @@ money_set = System.initMoneySystem(money_set,player_num)
 
 field = [] # 바닥에 깔리는 패
 
-players_hands[0].append(deck.pop(random.randrange(1,len(deck)))) #내게 오는 패
-
-players_hands[1].append(deck.pop(random.randrange(1,len(deck)))) #상대방에게 오는 패
-
-players_hands[0].append(deck.pop(random.randrange(1,len(deck)))) #내게 오는 패
-
-players_hands[1].append(deck.pop(random.randrange(1,len(deck)))) #상대방에게 오는 패
-
-field.append(deck.pop(random.randrange(1,len(deck))))
-field.append(deck.pop(random.randrange(1,len(deck))))
-field.append(deck.pop(random.randrange(1,len(deck))))
+System.draw(players_hands[0],deck)
+System.draw(players_hands[1],deck)
+System.draw(players_hands[0],deck)
+System.draw(players_hands[1],deck)
+System.draw(field,deck)
+System.draw(field,deck)
+System.draw(field,deck)
 
 System.showCurrenthands(players_hands,field)
 System.waitInput('')
-field.append(deck.pop(random.randrange(1,len(deck))))
+System.draw(field,deck)
 System.showCurrenthands(players_hands,field)
 System.waitInput('')
-field.append(deck.pop(random.randrange(1,len(deck))))
+System.draw(field,deck)
 System.showCurrenthands(players_hands,field)
 System.waitInput('next?')
 

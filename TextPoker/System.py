@@ -1,4 +1,4 @@
-
+import random
 
 
 def initPoker(playerhands:list):
@@ -52,3 +52,10 @@ def waitInput(word:str):
 
 def initWinRate():
     return 0
+
+def draw(drawpoint:list,draworigin:list):
+    drawpoint.append(draworigin.pop(random.randrange(1,len(draworigin))))
+
+    return 0
+
+
