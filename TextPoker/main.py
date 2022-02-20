@@ -1,8 +1,6 @@
 '''
 Main 은 게임이 돌아가는 부분이다. 
 
-
-
 '''
 
 import random
@@ -29,13 +27,17 @@ money_set = System.initMoneySystem(money_set,player_num)
 
 field = [] # 바닥에 깔리는 패
 
+#각 플레이어에게 핸드 제공
 System.draw(players_hands[0],deck)
 System.draw(players_hands[1],deck)
 System.draw(players_hands[0],deck)
 System.draw(players_hands[1],deck)
+
+# 바닥에 3장 세트
 System.draw(field,deck)
 System.draw(field,deck)
 System.draw(field,deck)
+
 
 System.showCurrenthands(players_hands,field)
 System.waitInput('')
@@ -74,7 +76,5 @@ print(money_set)
 이긴사람이 먹는다
 무승부 시 
 반반 나눠먹기
-
-
 
 '''

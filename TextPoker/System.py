@@ -58,4 +58,10 @@ def draw(drawpoint:list,draworigin:list):
 
     return 0
 
+def userinterface():
+    print("what do you want to do? ")
+    user_input = input("1.show current hand\n")
+    if (user_input !=int):
+        return -1 
+    return 0
 
