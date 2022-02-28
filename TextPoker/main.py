@@ -1,8 +1,6 @@
 '''
 Main 은 게임이 돌아가는 부분이다. 
-
 '''
-
 import random
 import Poker
 import System 
@@ -38,7 +36,9 @@ System.draw(field,deck)
 System.draw(field,deck)
 System.draw(field,deck)
 
+System.userinterface(players_hands,field)
 
+print("your hand is:")
 System.showCurrenthands(players_hands,field)
 System.waitInput('')
 System.draw(field,deck)
@@ -47,7 +47,6 @@ System.waitInput('')
 System.draw(field,deck)
 System.showCurrenthands(players_hands,field)
 System.waitInput('next?')
-
 
 print(money_set)
 

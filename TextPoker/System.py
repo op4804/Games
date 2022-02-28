@@ -58,10 +58,14 @@ def draw(drawpoint:list,draworigin:list):
 
     return 0
 
-def userinterface():
+def userinterface(players_hands:list,field:list):
     print("what do you want to do? ")
-    user_input = input("1.show current hand\n")
-    if (user_input !=int):
-        return -1 
+    user_input = input("1.show current hand\n2.show field\n")
+    if(user_input == 1):
+        showCurrenthands(players_hands,field)   
+    elif(user_input == 2):
+        print(field)
+    else:
+        return -1
     return 0
 
